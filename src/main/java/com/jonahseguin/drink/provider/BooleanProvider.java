@@ -12,6 +12,8 @@ import java.lang.annotation.Annotation;
 import java.util.Collections;
 import java.util.List;
 
+import static com.jonahseguin.drink.command.DrinkCommandService.providerMessages;
+
 public class BooleanProvider extends DrinkProvider<Boolean> {
 
     public static final BooleanProvider INSTANCE = new BooleanProvider();
@@ -51,7 +53,10 @@ public class BooleanProvider extends DrinkProvider<Boolean> {
             return Boolean.parseBoolean(s);
         }
         catch (NumberFormatException ex) {
-            throw new CommandExitMessage("Required: Boolean (true/false), Given: '" + s + "'");
+            final String message = (providerMessages.containsKey(ProviderMessage.BOOLEAN))
+                    ? providerMessages.get(ProviderMessage.BOOLEAN)
+                    : ProviderMessage.BOOLEAN.msg();
+            throw new CommandExitMessage(message);
         }
     }
 

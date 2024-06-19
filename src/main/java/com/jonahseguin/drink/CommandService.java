@@ -4,11 +4,13 @@ import com.jonahseguin.drink.command.DrinkAuthorizer;
 import com.jonahseguin.drink.command.DrinkCommandContainer;
 import com.jonahseguin.drink.modifier.DrinkModifier;
 import com.jonahseguin.drink.parametric.binder.DrinkBinder;
+import com.jonahseguin.drink.provider.ProviderMessage;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.lang.annotation.Annotation;
+import java.util.HashMap;
 
 /**
  * Drink CommandServices are {@link org.bukkit.plugin.java.JavaPlugin}-specific.
@@ -41,6 +43,7 @@ public interface CommandService {
      * @return The {@link DrinkCommandContainer} containing the command you registered (same as the root passed in)
      */
     DrinkCommandContainer registerSub(@Nonnull DrinkCommandContainer root, @Nonnull Object handler);
+
 
     /**
      * Must be called after all of you commands have been registered into Drink with
@@ -87,5 +90,9 @@ public interface CommandService {
 
 
     void unregisterCommands();
+
+    void unregisterCommand(DrinkCommandContainer commandContainer);
+
+    void registerMessages(HashMap<ProviderMessage, String> providerMessages);
 
 }

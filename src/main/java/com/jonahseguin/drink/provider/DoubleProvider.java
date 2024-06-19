@@ -11,6 +11,8 @@ import java.lang.annotation.Annotation;
 import java.util.Collections;
 import java.util.List;
 
+import static com.jonahseguin.drink.command.DrinkCommandService.providerMessages;
+
 public class DoubleProvider extends DrinkProvider<Double> {
 
     public static final DoubleProvider INSTANCE = new DoubleProvider();
@@ -43,7 +45,10 @@ public class DoubleProvider extends DrinkProvider<Double> {
             return Double.parseDouble(s);
         }
         catch (NumberFormatException ex) {
-            throw new CommandExitMessage("Required: Decimal Number, Given: '" + s + "'");
+            final String message = (providerMessages.containsKey(ProviderMessage.DOUBLE))
+                    ? providerMessages.get(ProviderMessage.DOUBLE)
+                    : ProviderMessage.DOUBLE.msg();
+            throw new CommandExitMessage(message);
         }
     }
 

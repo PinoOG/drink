@@ -4,6 +4,7 @@ import com.jonahseguin.drink.annotation.OptArg;
 import com.jonahseguin.drink.argument.CommandArg;
 import com.jonahseguin.drink.exception.CommandExitMessage;
 import com.jonahseguin.drink.parametric.DrinkProvider;
+import com.jonahseguin.drink.provider.ProviderMessage;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
@@ -13,6 +14,8 @@ import javax.annotation.Nullable;
 import java.lang.annotation.Annotation;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static com.jonahseguin.drink.command.DrinkCommandService.providerMessages;
 
 public class PlayerProvider extends DrinkProvider<Player> {
 
@@ -54,7 +57,10 @@ public class PlayerProvider extends DrinkProvider<Player> {
         if (arg.getSender() instanceof Player player && annotations.stream().anyMatch(a -> a.annotationType() == OptArg.class)) {
             return player;
         }
-        throw new CommandExitMessage("No player online with name '" + name + "'.");
+        final String message = (providerMessages.containsKey(ProviderMessage.PLAYER))
+                ? providerMessages.get(ProviderMessage.PLAYER)
+                : ProviderMessage.PLAYER.msg();
+        throw new CommandExitMessage(message.replace("%player%", name));
     }
 
     @Override

@@ -9,6 +9,8 @@ import javax.annotation.Nullable;
 import java.lang.annotation.Annotation;
 import java.util.List;
 
+import static com.jonahseguin.drink.command.DrinkCommandService.providerMessages;
+
 public class IntegerProvider extends DrinkProvider<Integer> {
 
     public static final IntegerProvider INSTANCE = new IntegerProvider();
@@ -42,7 +44,10 @@ public class IntegerProvider extends DrinkProvider<Integer> {
             return Integer.parseInt(s);
         }
         catch (NumberFormatException ex) {
-            throw new CommandExitMessage("Required: Integer, Given: '" + s + "'");
+            final String message = (providerMessages.containsKey(ProviderMessage.INTEGER))
+                    ? providerMessages.get(ProviderMessage.INTEGER)
+                    : ProviderMessage.INTEGER.msg();
+            throw new CommandExitMessage(message);
         }
     }
 

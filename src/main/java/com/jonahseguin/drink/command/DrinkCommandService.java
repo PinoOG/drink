@@ -30,7 +30,6 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationTargetException;
-import java.time.LocalDateTime;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
@@ -39,6 +38,8 @@ import java.util.concurrent.ConcurrentMap;
 public class DrinkCommandService implements CommandService {
 
     public static String DEFAULT_KEY = "DRINK_DEFAULT";
+
+    public static HashMap<ProviderMessage, String> providerMessages;
 
     private final JavaPlugin plugin;
     private final CommandExtractor extractor;
@@ -63,7 +64,7 @@ public class DrinkCommandService implements CommandService {
         this.spigotRegistry = new DrinkSpigotRegistry(this);
         this.flagExtractor = new FlagExtractor(this);
         this.authorizer = new DrinkAuthorizer();
-
+        providerMessages = new HashMap<>();
         this.bindDefaults();
     }
 
@@ -98,9 +99,25 @@ public class DrinkCommandService implements CommandService {
 
     @Override
     public void unregisterCommands() {
+        commands.values().forEach(spigotRegistry::unregister);
+    }
+
+
+    @Override
+    public void unregisterCommand(DrinkCommandContainer commandContainer){
         commands.values().forEach(cmd -> {
-            spigotRegistry.unregister(cmd);
+            if(cmd.equals(commandContainer)){
+                spigotRegistry.unregister(commandContainer);
+            }
         });
+    }
+
+    @Override
+    public void registerMessages(HashMap<ProviderMessage, String> messages){
+        for(ProviderMessage provider : messages.keySet()){
+            final String message = messages.get(provider);
+            providerMessages.put(provider, message);
+        }
     }
 
     @Override

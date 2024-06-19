@@ -3,6 +3,7 @@ package com.jonahseguin.drink.provider.spigot;
 import com.jonahseguin.drink.argument.CommandArg;
 import com.jonahseguin.drink.exception.CommandExitMessage;
 import com.jonahseguin.drink.parametric.DrinkProvider;
+import com.jonahseguin.drink.provider.ProviderMessage;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.jetbrains.annotations.NotNull;
@@ -10,6 +11,8 @@ import org.jetbrains.annotations.Nullable;
 
 import java.lang.annotation.Annotation;
 import java.util.List;
+
+import static com.jonahseguin.drink.command.DrinkCommandService.providerMessages;
 
 public class WorldProvider extends DrinkProvider<World> {
 
@@ -29,7 +32,10 @@ public class WorldProvider extends DrinkProvider<World> {
         String worldName = arg.get();
         World world = arg.getSender().getServer().getWorld(worldName);
         if (world == null) {
-            throw new CommandExitMessage("World '" + worldName + "' not found");
+            final String message = (providerMessages.containsKey(ProviderMessage.WORLD))
+                    ? providerMessages.get(ProviderMessage.WORLD)
+                    : ProviderMessage.WORLD.msg();
+            throw new CommandExitMessage(message.replace("%world%", worldName));
         }
         return world;
     }

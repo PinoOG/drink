@@ -11,6 +11,8 @@ import java.lang.annotation.Annotation;
 import java.util.Collections;
 import java.util.List;
 
+import static com.jonahseguin.drink.command.DrinkCommandService.providerMessages;
+
 public class LongProvider extends DrinkProvider<Long> {
 
     public static final LongProvider INSTANCE = new LongProvider();
@@ -43,6 +45,9 @@ public class LongProvider extends DrinkProvider<Long> {
             return Long.parseLong(s);
         }
         catch (NumberFormatException ex) {
+            final String message = (providerMessages.containsKey(ProviderMessage.LONG))
+                    ? providerMessages.get(ProviderMessage.LONG)
+                    : ProviderMessage.LONG.msg();
             throw new CommandExitMessage("Required: Long Number, Given: '" + s + "'");
         }
     }

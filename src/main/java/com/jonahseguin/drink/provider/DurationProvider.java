@@ -12,6 +12,8 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
+import static com.jonahseguin.drink.command.DrinkCommandService.providerMessages;
+
 public class DurationProvider extends DrinkProvider<Date> {
 
     public static final DurationProvider INSTANCE = new DurationProvider();
@@ -38,7 +40,10 @@ public class DurationProvider extends DrinkProvider<Date> {
                 throw new CommandExitMessage("Duration must be in format hh:mm or hh:mm:ss or 1h2m3s");
             }
         } catch (Exception ex) {
-            throw new CommandExitMessage("Duration must be in format hh:mm or hh:mm:ss or 1h2m3s");
+            final String message = (providerMessages.containsKey(ProviderMessage.DURATION))
+                    ? providerMessages.get(ProviderMessage.DURATION)
+                    : ProviderMessage.DURATION.msg();
+            throw new CommandExitMessage(message);
         }
     }
 

@@ -13,6 +13,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+import static com.jonahseguin.drink.command.DrinkCommandService.providerMessages;
+
 public class DateProvider extends DrinkProvider<Date> {
 
     public static final DateProvider INSTANCE = new DateProvider();
@@ -37,7 +39,10 @@ public class DateProvider extends DrinkProvider<Date> {
         try {
             return FORMAT.parse(s);
         } catch (ParseException e) {
-            throw new CommandExitMessage("Date must be in format: " + FORMAT_STR);
+            final String message = (providerMessages.containsKey(ProviderMessage.DATE))
+                    ? providerMessages.get(ProviderMessage.DATE)
+                    : ProviderMessage.DATE.msg();
+            throw new CommandExitMessage(message);
         }
     }
 
