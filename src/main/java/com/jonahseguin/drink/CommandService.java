@@ -5,6 +5,7 @@ import com.jonahseguin.drink.command.DrinkCommandContainer;
 import com.jonahseguin.drink.modifier.DrinkModifier;
 import com.jonahseguin.drink.parametric.binder.DrinkBinder;
 import com.jonahseguin.drink.provider.ProviderMessage;
+import net.kyori.adventure.text.Component;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import javax.annotation.Nonnull;

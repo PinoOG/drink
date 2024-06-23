@@ -19,6 +19,7 @@ import com.jonahseguin.drink.provider.*;
 import com.jonahseguin.drink.provider.spigot.*;
 import lombok.Getter;
 import lombok.Setter;
+import net.kyori.adventure.text.Component;
 import org.apache.commons.lang3.StringUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.World;
@@ -212,7 +213,7 @@ public class DrinkCommandService implements CommandService {
             ex.print(sender);
         } catch (CommandArgumentException ex) {
             sender.sendMessage(ChatColor.RED + ex.getMessage());
-            helpService.sendUsageMessage(sender, getContainerFor(command), command);
+            //helpService.sendUsageMessage(sender, getContainerFor(command), command);
         }
     }
 
