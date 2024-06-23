@@ -93,6 +93,8 @@ public interface CommandService {
 
     void unregisterCommand(DrinkCommandContainer commandContainer);
 
+    void setNoPermission(String message);
+
     void registerMessages(HashMap<ProviderMessage, String> providerMessages);
 
 }

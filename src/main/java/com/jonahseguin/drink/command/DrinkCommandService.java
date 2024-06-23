@@ -41,6 +41,8 @@ public class DrinkCommandService implements CommandService {
 
     public static HashMap<ProviderMessage, String> providerMessages;
 
+    public static String notAuthorized = "<red>You do not have permission to perform this command</red>";
+
     private final JavaPlugin plugin;
     private final CommandExtractor extractor;
     private final DrinkHelpService helpService;
@@ -110,6 +112,11 @@ public class DrinkCommandService implements CommandService {
                 spigotRegistry.unregister(commandContainer);
             }
         });
+    }
+
+    @Override
+    public void setNoPermission(final String message){
+        notAuthorized = message;
     }
 
     @Override
