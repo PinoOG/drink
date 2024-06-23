@@ -21,10 +21,10 @@ public class DrinkAuthorizer {
         if (sender.hasPermission(command.getPermission())) {
             return true;
         }
-        final String message = command.getPermissionMessage();
-        Component component = message != null && !message.isEmpty() ? ComponentHelper.format(message) : noPermissionMessage;
-        component = component.replaceText(builder -> builder.matchLiteral("{command}").replacement(label));
-        sender.sendMessage(component);
+        //final String message = command.getPermissionMessage();
+        //Component component = message != null && !message.isEmpty() ? ComponentHelper.format(message) : noPermissionMessage;
+        //component = component.replaceText(builder -> builder.matchLiteral("{command}").replacement(label));
+        //sender.sendMessage(component);
         return false;
     }
 
