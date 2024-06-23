@@ -17,6 +17,7 @@ import com.jonahseguin.drink.parametric.ProviderAssigner;
 import com.jonahseguin.drink.parametric.binder.DrinkBinder;
 import com.jonahseguin.drink.provider.*;
 import com.jonahseguin.drink.provider.spigot.*;
+import com.jonahseguin.drink.util.ComponentHelper;
 import lombok.Getter;
 import lombok.Setter;
 import net.kyori.adventure.text.Component;
@@ -212,7 +213,7 @@ public class DrinkCommandService implements CommandService {
         } catch (CommandExitMessage ex) {
             ex.print(sender);
         } catch (CommandArgumentException ex) {
-            sender.sendMessage(ChatColor.RED + ex.getMessage());
+            sender.sendMessage(ComponentHelper.format(ex.getMessage()));
             //helpService.sendUsageMessage(sender, getContainerFor(command), command);
         }
     }
