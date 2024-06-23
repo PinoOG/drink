@@ -18,6 +18,7 @@ import com.jonahseguin.drink.parametric.binder.DrinkBinder;
 import com.jonahseguin.drink.provider.*;
 import com.jonahseguin.drink.provider.spigot.*;
 import lombok.Getter;
+import lombok.Setter;
 import org.apache.commons.lang3.StringUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.World;
@@ -41,6 +42,7 @@ public class DrinkCommandService implements CommandService {
 
     public static HashMap<ProviderMessage, String> providerMessages;
 
+    @Setter
     public static String notAuthorized = "<red>You do not have permission to perform this command</red>";
 
     private final JavaPlugin plugin;
@@ -116,7 +118,7 @@ public class DrinkCommandService implements CommandService {
 
     @Override
     public void setNoPermission(final String message){
-        notAuthorized = message;
+        setNotAuthorized(message);
     }
 
     @Override

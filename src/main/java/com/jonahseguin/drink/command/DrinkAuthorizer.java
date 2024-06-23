@@ -24,9 +24,9 @@ public class DrinkAuthorizer {
             return true;
         }
 
-        final String message = command.getPermissionMessage();
-        Component component = message != null && !message.isEmpty() ? ComponentHelper.format(message) : noPermissionMessage;
-        sender.sendMessage(component);
+        //final String message = command.getPermissionMessage();
+        //Component component = message != null && !message.isEmpty() ? ComponentHelper.format(message) : noPermissionMessage;
+        sender.sendMessage(ComponentHelper.format(notAuthorized));
         return false;
     }
 
