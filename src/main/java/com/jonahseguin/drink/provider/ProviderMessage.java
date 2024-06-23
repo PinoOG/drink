@@ -11,7 +11,8 @@ public enum ProviderMessage {
     CONSOLE("This is a console-only command"),
     PLAYER("Target player %player% not found"),
     PLAYER_SENDER("This is a player-only command"),
-    WORLD("World %world% not found");
+    WORLD("World %world% not found"),
+    TEXT("Hey there is one or more arguments missing");
 
     public final String msg;
 

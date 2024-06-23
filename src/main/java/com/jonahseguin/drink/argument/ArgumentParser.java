@@ -10,10 +10,13 @@ import com.jonahseguin.drink.exception.CommandArgumentException;
 import com.jonahseguin.drink.exception.CommandExitMessage;
 import com.jonahseguin.drink.parametric.CommandParameter;
 import com.jonahseguin.drink.parametric.DrinkProvider;
+import com.jonahseguin.drink.provider.ProviderMessage;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.jonahseguin.drink.command.DrinkCommandService.providerMessages;
 
 public class ArgumentParser {
 
@@ -131,6 +134,13 @@ public class ArgumentParser {
             }
 
             if (provider.doesConsumeArgument()) {
+
+                if(parameter.isText() && !args.hasNext()){
+                    final String message = (providerMessages.containsKey(ProviderMessage.TEXT))
+                            ? providerMessages.get(ProviderMessage.TEXT)
+                            : ProviderMessage.TEXT.msg();
+                    throw new CommandArgumentException(message);
+                }
 
                 if (!args.hasNext()) {
                     throw new CommandArgumentException("Missing argument for: " + provider.argumentDescription());

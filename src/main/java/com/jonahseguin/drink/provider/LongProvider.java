@@ -48,7 +48,7 @@ public class LongProvider extends DrinkProvider<Long> {
             final String message = (providerMessages.containsKey(ProviderMessage.LONG))
                     ? providerMessages.get(ProviderMessage.LONG)
                     : ProviderMessage.LONG.msg();
-            throw new CommandExitMessage("Required: Long Number, Given: '" + s + "'");
+            throw new CommandExitMessage(message);
         }
     }
 
