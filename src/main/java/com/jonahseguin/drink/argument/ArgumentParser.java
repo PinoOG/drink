@@ -11,6 +11,7 @@ import com.jonahseguin.drink.exception.CommandExitMessage;
 import com.jonahseguin.drink.parametric.CommandParameter;
 import com.jonahseguin.drink.parametric.DrinkProvider;
 import com.jonahseguin.drink.provider.ProviderMessage;
+import com.jonahseguin.drink.util.ComponentHelper;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
@@ -143,7 +144,10 @@ public class ArgumentParser {
                 }
 
                 if (!args.hasNext()) {
-                    throw new CommandArgumentException("Missing argument for: " + provider.argumentDescription());
+                    final String message = (providerMessages.containsKey(ProviderMessage.MISSING_ARGUMENT))
+                            ? providerMessages.get(ProviderMessage.MISSING_ARGUMENT)
+                            : ProviderMessage.MISSING_ARGUMENT.msg();
+                    throw new CommandArgumentException(message.replace("%missing%", provider.argumentDescription()));
                 }
 
                 value = args.next();

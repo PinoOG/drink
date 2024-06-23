@@ -12,7 +12,10 @@ public enum ProviderMessage {
     PLAYER("Target player %player% not found"),
     PLAYER_SENDER("This is a player-only command"),
     WORLD("World %world% not found"),
-    TEXT("Hey there is one or more arguments missing");
+    TEXT("Hey there is one or more arguments missing"),
+    UNKNOWN_SUBCOMMAND("Unknown sub-command check %cmd% for available commands!"),
+    PROVIDE_SUBCOMMAND("Please choose a sub-command from %cmd%"),
+    MISSING_ARGUMENT("You need to provide %missing% to complete this command");
 
     public final String msg;
 
