@@ -33,8 +33,9 @@ public class DrinkCommandExecutor implements CommandExecutor {
                 if (args.length > 0) {
                     if (args[args.length - 1].equalsIgnoreCase("help") && !data.getKey().getName().equalsIgnoreCase("help")) {
                         // Send help if they ask for it, if they registered a custom help sub-command, allow that to override our help menu
-                        commandService.getHelpService().sendHelpFor(sender, container);
-                        System.out.println("Triggering A");
+                        //commandService.getHelpService().sendHelpFor(sender, container);
+                        //System.out.println("Triggering A");
+                        commandService.executeCommand(sender, data.getKey(), label, data.getValue());
                         return true;
                     }
                 }
