@@ -18,16 +18,6 @@ public class DrinkHelpService {
     public DrinkHelpService(DrinkCommandService commandService) {
         this.commandService = commandService;
         this.helpFormatter = (sender, container) -> {
-            sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&7&m--------------------------------"));
-            sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&bHelp &7- &6/" + container.getName()));
-            for (DrinkCommand c : container.getCommands().values()) {
-                TextComponent msg = new TextComponent(net.md_5.bungee.api.ChatColor.translateAlternateColorCodes('&',
-                        "&7/" + container.getName() + (c.getName().length() > 0 ? " &e" + c.getName() : "") + " &7" + c.getMostApplicableUsage() + " &7- &f" + c.getShortDescription()));
-                msg.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, TextComponent.fromLegacyText(ChatColor.GRAY + "/" + container.getName() + " " + c.getName() + " - " + ChatColor.WHITE + c.getDescription())));
-                msg.setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/" + container.getName() + " " + c.getName()));
-                sender.spigot().sendMessage(msg);
-            }
-            sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&7&m--------------------------------"));
         };
     }
 
