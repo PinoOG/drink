@@ -79,6 +79,7 @@ public class PlayerProvider extends DrinkProvider<Player> {
         final String finalPrefix = prefix.toLowerCase();
         return plugin.getServer().getOnlinePlayers()
                 .stream()
+                .filter(player -> !player.hasMetadata("vanished"))
                 .map(HumanEntity::getName)
                 .filter(s -> finalPrefix.isEmpty() || s.toLowerCase().startsWith(finalPrefix))
                 .collect(Collectors.toList());
