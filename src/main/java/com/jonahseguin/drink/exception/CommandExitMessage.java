@@ -2,7 +2,6 @@ package com.jonahseguin.drink.exception;
 
 import com.jonahseguin.drink.util.ComponentHelper;
 import net.kyori.adventure.text.Component;
-import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 
 import javax.annotation.Nonnull;

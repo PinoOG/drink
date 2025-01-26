@@ -1,7 +1,6 @@
 package com.jonahseguin.drink.parametric;
 
 import com.jonahseguin.drink.argument.CommandArg;
-import com.jonahseguin.drink.command.DrinkCommandService;
 import com.jonahseguin.drink.exception.CommandExitMessage;
 import org.bukkit.command.CommandSender;
 
@@ -11,7 +10,6 @@ import java.lang.annotation.Annotation;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-import java.util.TreeMap;
 import java.util.concurrent.CompletableFuture;
 
 public abstract class DrinkProvider<T> {
