@@ -11,7 +11,6 @@ import com.jonahseguin.drink.exception.CommandExitMessage;
 import com.jonahseguin.drink.parametric.CommandParameter;
 import com.jonahseguin.drink.parametric.DrinkProvider;
 import com.jonahseguin.drink.provider.ProviderMessage;
-import com.jonahseguin.drink.util.ComponentHelper;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;

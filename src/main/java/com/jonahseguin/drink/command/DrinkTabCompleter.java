@@ -4,7 +4,6 @@ import com.destroystokyo.paper.event.server.AsyncTabCompleteEvent;
 import com.google.common.collect.Maps;
 import com.jonahseguin.drink.parametric.CommandParameter;
 import com.jonahseguin.drink.parametric.DrinkProvider;
-import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
@@ -13,7 +12,6 @@ import org.bukkit.event.Listener;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
-import java.util.concurrent.CompletableFuture;
 
 public class DrinkTabCompleter implements TabCompleter, Listener {
 

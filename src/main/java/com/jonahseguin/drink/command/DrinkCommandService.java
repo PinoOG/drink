@@ -19,8 +19,6 @@ import com.jonahseguin.drink.provider.*;
 import com.jonahseguin.drink.provider.spigot.*;
 import com.jonahseguin.drink.util.ComponentHelper;
 import lombok.Getter;
-import lombok.Setter;
-import net.kyori.adventure.text.Component;
 import org.apache.commons.lang3.StringUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.World;
@@ -40,12 +38,9 @@ import java.util.concurrent.ConcurrentMap;
 @Getter
 public class DrinkCommandService implements CommandService {
 
-    public static String DEFAULT_KEY = "DRINK_DEFAULT";
+    public static final String DEFAULT_KEY = "DRINK_DEFAULT";
 
-    public static HashMap<ProviderMessage, String> providerMessages;
-
-    @Setter
-    public static String notAuthorized = "<red>You do not have permission to perform this command</red>";
+    public static final Map<ProviderMessage, String> providerMessages = new ConcurrentHashMap<>();
 
     private final JavaPlugin plugin;
     private final CommandExtractor extractor;
@@ -70,7 +65,6 @@ public class DrinkCommandService implements CommandService {
         this.spigotRegistry = new DrinkSpigotRegistry(this);
         this.flagExtractor = new FlagExtractor(this);
         this.authorizer = new DrinkAuthorizer();
-        providerMessages = new HashMap<>();
         this.bindDefaults();
     }
 
@@ -119,12 +113,7 @@ public class DrinkCommandService implements CommandService {
     }
 
     @Override
-    public void setNoPermission(final String message){
-        setNotAuthorized(message);
-    }
-
-    @Override
-    public void registerMessages(HashMap<ProviderMessage, String> messages){
+    public void registerMessages(Map<ProviderMessage, String> messages){
         for(ProviderMessage provider : messages.keySet()){
             final String message = messages.get(provider);
             providerMessages.put(provider, message);

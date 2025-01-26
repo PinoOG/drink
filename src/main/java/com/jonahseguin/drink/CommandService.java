@@ -5,13 +5,12 @@ import com.jonahseguin.drink.command.DrinkCommandContainer;
 import com.jonahseguin.drink.modifier.DrinkModifier;
 import com.jonahseguin.drink.parametric.binder.DrinkBinder;
 import com.jonahseguin.drink.provider.ProviderMessage;
-import net.kyori.adventure.text.Component;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.lang.annotation.Annotation;
-import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Drink CommandServices are {@link org.bukkit.plugin.java.JavaPlugin}-specific.
@@ -94,8 +93,6 @@ public interface CommandService {
 
     void unregisterCommand(DrinkCommandContainer commandContainer);
 
-    void setNoPermission(String message);
-
-    void registerMessages(HashMap<ProviderMessage, String> providerMessages);
+    void registerMessages(Map<ProviderMessage, String> providerMessages);
 
 }

@@ -1,6 +1,7 @@
 package com.jonahseguin.drink.provider;
 
 public enum ProviderMessage {
+    UNAUTHORIZED("You are not authorized to use this command"),
     BOOLEAN("You can only use (true/false) as values"),
     DATE("You must specify a date in this format yyyy-MM-dd@HH:mm"),
     DOUBLE("You must provide a decimal number like 1.20 or 67.5"),
