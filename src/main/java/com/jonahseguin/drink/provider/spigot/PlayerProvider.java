@@ -14,6 +14,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.lang.annotation.Annotation;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.stream.Collectors;
 
 import static com.jonahseguin.drink.command.DrinkCommandService.providerMessages;
@@ -77,11 +78,11 @@ public class PlayerProvider extends DrinkProvider<Player> {
     @Override
     public List<String> getSuggestions(@Nonnull String prefix) {
         final String finalPrefix = prefix.toLowerCase();
-        return plugin.getServer().getOnlinePlayers()
+        return new CopyOnWriteArrayList<>(plugin.getServer().getOnlinePlayers()
                 .stream()
                 .filter(player -> !player.hasMetadata("vanished"))
                 .map(HumanEntity::getName)
                 .filter(s -> finalPrefix.isEmpty() || s.toLowerCase().startsWith(finalPrefix))
-                .collect(Collectors.toList());
+                .collect(Collectors.toList()));
     }
 }
