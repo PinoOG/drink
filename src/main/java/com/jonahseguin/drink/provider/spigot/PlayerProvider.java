@@ -83,11 +83,13 @@ public class PlayerProvider extends DrinkProvider<Player> {
         final String finalPrefix = prefix.toLowerCase();
         System.out.println("finalPrefix: " + finalPrefix);
         System.out.println("Players: " + plugin.getServer().getOnlinePlayers());
-        return plugin.getServer().getOnlinePlayers()
+        final List<String> players =  plugin.getServer().getOnlinePlayers()
                 .stream()
                 .filter(player -> !player.hasMetadata("vanished"))
                 .map(HumanEntity::getName)
                 .filter(s -> finalPrefix.isEmpty() || s.toLowerCase().startsWith(finalPrefix))
                 .collect(Collectors.toCollection(CopyOnWriteArrayList::new));
+        System.out.println(players);
+        return players;
     }
 }
