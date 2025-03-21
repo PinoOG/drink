@@ -85,7 +85,7 @@ public class PlayerProvider extends DrinkProvider<Player> {
         System.out.println("Players: " + plugin.getServer().getOnlinePlayers());
         final List<String> players =  plugin.getServer().getOnlinePlayers()
                 .stream()
-                .filter(player -> !player.hasMetadata("vanished"))
+                //.filter(player -> !player.hasMetadata("vanished"))
                 .map(HumanEntity::getName)
                 .filter(s -> finalPrefix.isEmpty() || s.toLowerCase().startsWith(finalPrefix))
                 .collect(Collectors.toCollection(CopyOnWriteArrayList::new));
