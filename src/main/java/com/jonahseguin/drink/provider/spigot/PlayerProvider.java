@@ -52,16 +52,18 @@ public class PlayerProvider extends DrinkProvider<Player> {
     @Override
     public Player provide(@Nonnull CommandArg arg, @Nonnull List<? extends Annotation> annotations) throws CommandExitMessage {
         String name = arg.get();
+
         Player p = Bukkit.getOnlinePlayers()
                 .stream()
                 .filter(player -> !player.hasMetadata("vanished"))
                 .filter(player -> player.getName().startsWith(name))
                 .findFirst()
                 .orElse(null);
-        
+
         if (p != null) {
             return p;
         }
+        
         if (arg.getSender() instanceof Player player && annotations.stream().anyMatch(a -> a.annotationType() == OptArg.class)) {
             return player;
         }
@@ -79,11 +81,13 @@ public class PlayerProvider extends DrinkProvider<Player> {
     @Override
     public List<String> getSuggestions(@Nonnull String prefix) {
         final String finalPrefix = prefix.toLowerCase();
-        return new CopyOnWriteArrayList<>(plugin.getServer().getOnlinePlayers()
+        System.out.println("finalPrefix: " + finalPrefix);
+        System.out.println("Players: " + plugin.getServer().getOnlinePlayers());
+        return plugin.getServer().getOnlinePlayers()
                 .stream()
                 .filter(player -> !player.hasMetadata("vanished"))
                 .map(HumanEntity::getName)
                 .filter(s -> finalPrefix.isEmpty() || s.toLowerCase().startsWith(finalPrefix))
-                .collect(Collectors.toList()));
+                .collect(Collectors.toCollection(CopyOnWriteArrayList::new));
     }
 }
