@@ -12,6 +12,7 @@ import org.bukkit.event.Listener;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class DrinkTabCompleter implements TabCompleter, Listener {
 
@@ -67,7 +68,7 @@ public class DrinkTabCompleter implements TabCompleter, Listener {
 
     public List<String> getCompletions(CommandSender sender, String[] args, boolean async) {
         Map.Entry<DrinkCommand, String[]> data = container.getCommandWithPermission(args, sender);
-        List<String> completions = new ArrayList<>();
+        List<String> completions = new CopyOnWriteArrayList<>();
         if (data != null && data.getKey() != null) {
             String tabCompleting = "";
             int tabCompletingIndex = 0;

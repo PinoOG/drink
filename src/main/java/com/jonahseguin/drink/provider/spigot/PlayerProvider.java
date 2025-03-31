@@ -9,6 +9,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -79,11 +80,20 @@ public class PlayerProvider extends DrinkProvider<Player> {
     @Override
     public List<String> getSuggestions(@Nonnull String prefix) {
         final String finalPrefix = prefix.toLowerCase();
-        return new CopyOnWriteArrayList<>(plugin.getServer().getOnlinePlayers()
+        return plugin.getServer().getOnlinePlayers()
                 .stream()
-                .filter(player -> !player.hasMetadata("vanished"))
+                .filter(player -> !isVanished(player))
                 .map(HumanEntity::getName)
                 .filter(s -> finalPrefix.isEmpty() || s.toLowerCase().startsWith(finalPrefix))
-                .collect(Collectors.toList()));
+                .collect(Collectors.toCollection(CopyOnWriteArrayList::new));
+    }
+
+    private boolean isVanished(final @NotNull Player player){
+        for(final var metadata : player.getMetadata("vanished")){
+            if(metadata.asBoolean()){
+                return true;
+            }
+        }
+        return false;
     }
 }
