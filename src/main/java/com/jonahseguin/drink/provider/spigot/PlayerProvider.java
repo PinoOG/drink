@@ -55,14 +55,14 @@ public class PlayerProvider extends DrinkProvider<Player> {
         String name = arg.get();
         Player p = Bukkit.getOnlinePlayers()
                 .stream()
-                .filter(player -> !player.hasMetadata("vanished"))
                 .filter(player -> player.getName().startsWith(name))
                 .findFirst()
                 .orElse(null);
-        
+
         if (p != null) {
             return p;
         }
+
         if (arg.getSender() instanceof Player player && annotations.stream().anyMatch(a -> a.annotationType() == OptArg.class)) {
             return player;
         }
