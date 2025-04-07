@@ -11,6 +11,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public abstract class DrinkProvider<T> {
 
@@ -33,7 +34,7 @@ public abstract class DrinkProvider<T> {
     public abstract String argumentDescription();
 
     public List<String> getSuggestions(@Nonnull String prefix) {
-        return Collections.emptyList();
+        return new CopyOnWriteArrayList<>();
     }
 
     public List<String> getSuggestions(CommandSender sender, @Nonnull String prefix) {

@@ -11,7 +11,10 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public class DrinkTabCompleter implements TabCompleter, Listener {
@@ -51,7 +54,7 @@ public class DrinkTabCompleter implements TabCompleter, Listener {
         }
 
         List<String> completions = getCompletions(e.getSender(), args, true);
-        if(completions == null || completions.isEmpty()) {
+        if (completions == null || completions.isEmpty()) {
             return;
         }
         e.setCompletions(completions);
@@ -87,9 +90,11 @@ public class DrinkTabCompleter implements TabCompleter, Listener {
                     parameters.put(parameter, name);
                     index++;
                 }
-                List<String> s = async ?
-                        provider.getSuggestionsAsync(sender, tabCompleting, parameters, commandParameter.getAllAnnotations()).join() :
-                        provider.getSuggestions(sender, tabCompleting, parameters, commandParameter.getAllAnnotations());
+                CopyOnWriteArrayList<String> s = (CopyOnWriteArrayList<String>)
+                        (async ?
+                                provider.getSuggestionsAsync(sender, tabCompleting, parameters, commandParameter.getAllAnnotations()).join() :
+                                provider.getSuggestions(sender, tabCompleting, parameters, commandParameter.getAllAnnotations())
+                        );
                 if (s != null) {
                     completions.addAll(s);
                     if (args.length == 0 || args.length == 1) {
