@@ -14,6 +14,7 @@ import org.jetbrains.annotations.NotNull;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.lang.annotation.Annotation;
+import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.stream.Collectors;
@@ -80,12 +81,16 @@ public class PlayerProvider extends DrinkProvider<Player> {
     @Override
     public List<String> getSuggestions(@Nonnull String prefix) {
         final String finalPrefix = prefix.toLowerCase();
-        return plugin.getServer().getOnlinePlayers()
-                .stream()
+        
+        Collection<? extends Player> onlinePlayers = new CopyOnWriteArrayList<>(
+                plugin.getServer().getOnlinePlayers()
+        );
+
+        return onlinePlayers.stream()
                 .filter(player -> !isVanished(player))
                 .map(HumanEntity::getName)
                 .filter(s -> finalPrefix.isEmpty() || s.toLowerCase().startsWith(finalPrefix))
-                .collect(Collectors.toCollection(CopyOnWriteArrayList::new));
+                .collect(Collectors.toList());
     }
 
     private boolean isVanished(final @NotNull Player player){

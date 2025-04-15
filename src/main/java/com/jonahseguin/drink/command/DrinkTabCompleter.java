@@ -63,7 +63,7 @@ public class DrinkTabCompleter implements TabCompleter, Listener {
     @Override
     public List<String> onTabComplete(@NotNull CommandSender sender, Command command, @NotNull String label, String[] args) {
         if (!command.getName().equalsIgnoreCase(container.getName()) && container.getAliases().stream().noneMatch(s -> s.equalsIgnoreCase(command.getName()))) {
-            return Collections.emptyList();
+            return new CopyOnWriteArrayList<>();
         }
 
         return getCompletions(sender, args, false);
