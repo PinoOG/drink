@@ -90,7 +90,7 @@ public class PlayerProvider extends DrinkProvider<Player> {
                 .filter(player -> !isVanished(player))
                 .map(HumanEntity::getName)
                 .filter(s -> finalPrefix.isEmpty() || s.toLowerCase().startsWith(finalPrefix))
-                .collect(Collectors.toList());
+                .collect(Collectors.toCollection(CopyOnWriteArrayList::new));
     }
 
     private boolean isVanished(final @NotNull Player player){
