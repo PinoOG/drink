@@ -60,7 +60,7 @@ public class PlayerProvider extends DrinkProvider<Player> {
                 .findFirst()
                 .orElse(null);
 
-        if (p != null) {
+        if (p != null && !isVanished(p)) {
             return p;
         }
 
