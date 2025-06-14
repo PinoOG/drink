@@ -6,6 +6,7 @@ import com.jonahseguin.drink.exception.CommandExitMessage;
 import com.jonahseguin.drink.parametric.DrinkProvider;
 import com.jonahseguin.drink.provider.ProviderMessage;
 import org.bukkit.Bukkit;
+import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
@@ -53,24 +54,33 @@ public class PlayerProvider extends DrinkProvider<Player> {
     @Nullable
     @Override
     public Player provide(@Nonnull CommandArg arg, @Nonnull List<? extends Annotation> annotations) throws CommandExitMessage {
-        String name = arg.get();
-        Player p = Bukkit.getOnlinePlayers()
-                .stream()
-                .filter(player -> player.getName().startsWith(name))
-                .findFirst()
-                .orElse(null);
+        final var sender = arg.getSender();
+        final var name = arg.get().toLowerCase();
+        final var target = this.getTarget(name);
 
-        if (p != null && !isVanished(p)) {
-            return p;
+        if(target == null){
+            final String message = (providerMessages.containsKey(ProviderMessage.PLAYER))
+                    ? providerMessages.get(ProviderMessage.PLAYER)
+                    : ProviderMessage.PLAYER.msg();
+            throw new CommandExitMessage(message.replace("%player%", name));
         }
 
-        if (arg.getSender() instanceof Player player && annotations.stream().anyMatch(a -> a.annotationType() == OptArg.class)) {
-            return player;
+        if(sender instanceof ConsoleCommandSender){
+            return target;
         }
+
+        final var player = (Player) sender;
+        if(player.isOp() || player.hasPermission("drink.provider.bypassvanished")) {
+            return target;
+        }
+
+        if(!isVanished(target)) return target;
+
         final String message = (providerMessages.containsKey(ProviderMessage.PLAYER))
                 ? providerMessages.get(ProviderMessage.PLAYER)
                 : ProviderMessage.PLAYER.msg();
         throw new CommandExitMessage(message.replace("%player%", name));
+
     }
 
     @Override
@@ -100,5 +110,13 @@ public class PlayerProvider extends DrinkProvider<Player> {
             }
         }
         return false;
+    }
+
+    private @Nullable Player getTarget(final @NotNull String name){
+        return Bukkit.getOnlinePlayers()
+                .stream()
+                .filter(player -> player.getName().toLowerCase().startsWith(name))
+                .findFirst()
+                .orElse(null);
     }
 }
