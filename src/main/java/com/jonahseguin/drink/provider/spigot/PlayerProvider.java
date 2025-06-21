@@ -115,7 +115,7 @@ public class PlayerProvider extends DrinkProvider<Player> {
     private @Nullable Player getTarget(final @NotNull String name){
         return Bukkit.getOnlinePlayers()
                 .stream()
-                .filter(player -> player.getName().toLowerCase().startsWith(name))
+                .filter(player -> player.getName().equals(name) || player.getName().toLowerCase().startsWith(name) )
                 .findFirst()
                 .orElse(null);
     }
