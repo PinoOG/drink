@@ -9,6 +9,7 @@ import org.apache.commons.lang3.StringUtils;
 import javax.annotation.Nonnull;
 import java.lang.annotation.Annotation;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.regex.Pattern;
 
 import static com.jonahseguin.drink.command.DrinkCommandService.providerMessages;
@@ -55,7 +56,7 @@ public class EnumProvider<T extends Enum<T>> extends DrinkProvider<T> {
 
     @Override
     public List<String> getSuggestions(@Nonnull String prefix) {
-        List<String> suggestions = Lists.newArrayList();
+        List<String> suggestions = new CopyOnWriteArrayList<>();
         String test = simplify(prefix);
 
         for (T entry : enumClass.getEnumConstants()) {
