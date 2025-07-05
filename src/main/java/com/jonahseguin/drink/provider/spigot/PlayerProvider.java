@@ -56,7 +56,7 @@ public class PlayerProvider extends DrinkProvider<Player> {
     public Player provide(@Nonnull CommandArg arg, @Nonnull List<? extends Annotation> annotations) throws CommandExitMessage {
         final var sender = arg.getSender();
         final var name = arg.get().toLowerCase();
-        final var target = this.getTarget(name);
+        final var target = this.getTarget(name, sender.getName());
 
         if(target == null){
             final String message = (providerMessages.containsKey(ProviderMessage.PLAYER))
@@ -112,13 +112,15 @@ public class PlayerProvider extends DrinkProvider<Player> {
         return false;
     }
 
-    private @Nullable Player getTarget(final @NotNull String name){
+    private @Nullable Player getTarget(final @NotNull String target, final @NotNull String executor){
         return Bukkit.getOnlinePlayers()
                 .stream()
                 .filter(player -> {
-                    return player.getName().equals(name)
-                            || player.getName().toLowerCase().startsWith(name)
-                            || player.getName().toLowerCase().contains(name);
+                    final var playerName = player.getName().toLowerCase();
+
+                    if(playerName.equals(executor.toLowerCase())) return false;
+
+                    return playerName.startsWith(target) || playerName.contains(target);
                 } )
                 .findFirst()
                 .orElse(null);
