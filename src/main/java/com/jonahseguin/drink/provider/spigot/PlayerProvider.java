@@ -120,7 +120,7 @@ public class PlayerProvider extends DrinkProvider<Player> {
 
                     if(playerName.equals(executor.toLowerCase())) return false;
 
-                    return playerName.startsWith(target) || playerName.contains(target);
+                    return playerName.equalsIgnoreCase(target) || playerName.startsWith(target) || playerName.contains(target);
                 } )
                 .findFirst()
                 .orElse(null);
