@@ -32,7 +32,7 @@ dependencies {
 group = 'com.jonahseguin'
 version = '1.5.1'
 description = 'drink'
-java.sourceCompatibility = JavaVersion.VERSION_17
+java.sourceCompatibility = JavaVersion.VERSION_21
 
 publishing {
     publications {
