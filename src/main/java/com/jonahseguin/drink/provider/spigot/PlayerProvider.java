@@ -117,9 +117,6 @@ public class PlayerProvider extends DrinkProvider<Player> {
                 .stream()
                 .filter(player -> {
                     final var playerName = player.getName().toLowerCase();
-
-                    if(playerName.equals(executor.toLowerCase())) return true;
-
                     return playerName.equalsIgnoreCase(target) || playerName.startsWith(target) || playerName.contains(target);
                 } )
                 .findFirst()
